@@ -75,9 +75,18 @@
 % Needed to manage math fonts
 \RequirePackage{unicode-math}
 % Needed to use icons from font-awesome
-\RequirePackage{fontawesome6}
+\RequirePackage{fontawesome5}
+% Compatibility aliases for the newer Font Awesome 5 icon names used by the template.
+\providecommand{\faHouseChimney}{\faHome}
+\providecommand{\faSquareGithub}{\faGithub}
+\providecommand{\faSquareXing}{\faXingSquare}
+\providecommand{\faCakeCandles}{\faBirthdayCake}
 \RequirePackage{roboto}
 \RequirePackage[default,opentype]{sourcesanspro}
+% Source Sans Pro does not ship with italic small-cap variants, so map them to the matching italic face.
+\DeclareFontShape{TU}{SourceSansPro(0)}{m}{scit}{<->ssub * SourceSansPro(0)/m/it}{}
+\DeclareFontShape{TU}{SourceSansPro(0)}{b}{scit}{<->ssub * SourceSansPro(0)/b/it}{}
+\DeclareFontShape{TU}{SourceSansPro(0)}{bx}{scit}{<->ssub * SourceSansPro(0)/b/it}{}
 % Needed for the photo ID
 \RequirePackage[skins]{tcolorbox}
 % Needed to deal a paragraphs
@@ -182,7 +191,7 @@
 \newcommand*{\headersocialstyle}[1]{{\fontsize{6.8pt}{1em}\headerfont\color{text} #1}}
 \newcommand*{\headerquotestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\itshape\color{darktext} #1}}
 \newcommand*{\footerstyle}[1]{{\fontsize{8pt}{1em}\footerfont\scshape\color{lighttext} #1}}
-\newcommand*{\sectionstyle}[1]{{\fontsize{16pt}{1em}\bodyfont\bfseries\color{awesome} #1}}
+\newcommand*{\sectionstyle}[1]{{\fontsize{14pt}{1em}\bodyfont\bfseries\color{awesome} #1}}
 \newcommand*{\subsectionstyle}[1]{{\fontsize{12pt}{1em}\bodyfont\scshape\textcolor{text}{#1}}}
 \newcommand*{\paragraphstyle}{\fontsize{9pt}{1em}\bodyfontlight\upshape\color{text}}
 
@@ -207,8 +216,8 @@
 \newcommand*{\honorlocationstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\slshape\color{awesome} #1}}
 
 % For elements of skill
-\newcommand*{\skilltypestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
-\newcommand*{\skillsetstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\color{text} #1}}
+\newcommand*{\skilltypestyle}[1]{{\fontsize{9pt}{0.5em}\bodyfont\bfseries\color{darktext} #1}}
+\newcommand*{\skillsetstyle}[1]{{\fontsize{9pt}{0.5em}\bodyfontlight\color{text} #1}}
 
 % For elements of the cover letter
 \newcommand*{\lettersectionstyle}[1]{{\fontsize{14pt}{1em}\bodyfont\bfseries\color{text}\@sectioncolor #1}}
@@ -286,8 +295,15 @@
 \newcommand*{\homepage}[1]{\def\@homepage{#1}}
 
 % Defines writer's github (optional)
-% Usage: \github{<github-nick>}
-\newcommand*{\github}[1]{\def\@github{#1}}
+% Usage: \github{<github-nick>} or full URL
+\newcommand*{\github}[1]{%
+  \def\@github{#1}%
+  \IfBeginWith{#1}{http://}{\def\@githuburl{#1}}{%
+    \IfBeginWith{#1}{https://}{\def\@githuburl{#1}}{%
+      \def\@githuburl{https://github.com/#1}%
+    }%
+  }%
+}
 
 % Defines writer's gitlab (optional)
 % Usage: \gitlab{<gitlab-nick>}
@@ -304,8 +320,15 @@
 \newcommand*{\stackoverflow}[2]{\def\@stackoverflowid{#1}\def\@stackoverflowname{#2}}
 
 % Defines writer's linked-in (optional)
-% Usage: \linkedin{<linked-in-nick>}
-\newcommand*{\linkedin}[1]{\def\@linkedin{#1}}
+% Usage: \linkedin{<linked-in-nick>} or full URL
+\newcommand*{\linkedin}[1]{%
+  \def\@linkedin{#1}%
+  \IfBeginWith{#1}{http://}{\def\@linkedinurl{#1}}{%
+    \IfBeginWith{#1}{https://}{\def\@linkedinurl{#1}}{%
+      \def\@linkedinurl{https://linkedin.com/in/#1}%
+    }%
+  }%
+}
 
 % Defines writer's orcid (optional)
 % Usage: \orcid{<orcid-num>}
@@ -340,8 +363,15 @@
 \newcommand*{\medium}[1]{\def\@medium{#1}}
 
 % Defines writer's dev.to profile (optional)
-% Usage: \dev{<dev.to account>}
-\newcommand*{\dev}[1]{\def\@dev{#1}}
+% Usage: \dev{<dev.to account>} or full URL
+\newcommand*{\dev}[1]{%
+  \def\@dev{#1}%
+  \IfBeginWith{#1}{http://}{\def\@devurl{#1}}{%
+    \IfBeginWith{#1}{https://}{\def\@devurl{#1}}{%
+      \def\@devurl{https://dev.to/#1}%
+    }%
+  }%
+}
 
 % Defines writer's kaggle (optional)
 % Usage: \kaggle{<kaggle handle>}
@@ -419,12 +449,22 @@
 \newcommand{\acvHeaderAfterAddressSkip}{-.5mm}
 \newcommand{\acvHeaderIconSep}{\space}
 \newcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
-\newcommand{\acvHeaderAfterSocialSkip}{6mm}
-\newcommand{\acvHeaderAfterQuoteSkip}{5mm}
+\newcommand{\acvHeaderAfterSocialSkip}{1.5mm}
+\newcommand{\acvHeaderAfterQuoteSkip}{0.5mm}
+\newcounter{acvHeaderSocialCount}
+\newcommand{\acvRenderSocialItem}[1]{%
+  #1%
+  \stepcounter{acvHeaderSocialCount}%
+  \ifnum\value{acvHeaderSocialCount}=3%
+    \par\noindent%
+    \setcounter{acvHeaderSocialCount}{0}%
+    \setbool{isstart}{true}%
+  \fi%
+}
 
 % Others
-\newcommand{\acvSectionTopSkip}{2mm}
-\newcommand{\acvSectionContentTopSkip}{2.5mm}
+\newcommand{\acvSectionTopSkip}{0.2mm}
+\newcommand{\acvSectionContentTopSkip}{1.0mm}
 
 
 %-------------------------------------------------------------------------------
@@ -452,8 +492,8 @@
     \ifthenelse{\isundefined{\@photo}}{}{%
       \newlength{\photodim}
       \ifthenelse{\equal{\@photoshape}{circle}}%
-        {\setlength{\photodim}{1.3cm}}%
-        {\setlength{\photodim}{1.8cm}}%
+        {\setlength{\photodim}{1cm}}%
+        {\setlength{\photodim}{1.5cm}}%
       \ifthenelse{\equal{\@photoedge}{edge}}%
         {\def\@photoborder{darkgray}}%
         {\def\@photoborder{none}}%
@@ -483,144 +523,144 @@
     \headersocialstyle{%
       \newbool{isstart}%
       \setbool{isstart}{true}%
+      \setcounter{acvHeaderSocialCount}{0}%
       \ifthenelse{\isundefined{\@mobile}}%
         {}%
         {%
-          \href{\@teluri}{\faMobile\acvHeaderIconSep\@mobile}%
           \setbool{isstart}{false}%
+          \acvRenderSocialItem{\href{\@teluri}{\faMobile\acvHeaderIconSep\@mobile}}%
         }%
       \ifthenelse{\isundefined{\@email}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{mailto:\@email}{\faEnvelope\acvHeaderIconSep\@email}%
+          \acvRenderSocialItem{\href{mailto:\@email}{\faEnvelope\acvHeaderIconSep\@email}}%
         }%
       \ifthenelse{\isundefined{\@dateofbirth}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          % \mbox prevents wrapping of elements%
-          \mbox{\faCakeCandles\acvHeaderIconSep\@dateofbirth}%
+          \acvRenderSocialItem{\mbox{\faCakeCandles\acvHeaderIconSep\@dateofbirth}}%
         }%
       \ifthenelse{\isundefined{\@homepage}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{http://\@homepage}{\faHouseChimney\acvHeaderIconSep\@homepage}%
+          \acvRenderSocialItem{\href{\@homepage}{\faHouseChimney\acvHeaderIconSep\@homepage}}%
         }%
       \ifthenelse{\isundefined{\@github}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://github.com/\@github}{\faSquareGithub\acvHeaderIconSep\@github}%
+          \acvRenderSocialItem{\href{\@githuburl}{\faSquareGithub\acvHeaderIconSep\@github}}%
         }%
       \ifthenelse{\isundefined{\@gitlab}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://gitlab.com/\@gitlab}{\faGitlab\acvHeaderIconSep\@gitlab}%
+          \acvRenderSocialItem{\href{https://gitlab.com/\@gitlab}{\faGitlab\acvHeaderIconSep\@gitlab}}%
         }%
       \ifthenelse{\isundefined{\@bitbucket}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://bitbucket.com/\@bitbucket}{\faBitbucket\acvHeaderIconSep\@bitbucket}%
+          \acvRenderSocialItem{\href{https://bitbucket.com/\@bitbucket}{\faBitbucket\acvHeaderIconSep\@bitbucket}}%
         }%
       \ifthenelse{\isundefined{\@stackoverflowid}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://stackoverflow.com/users/\@stackoverflowid}{\faStackOverflow\acvHeaderIconSep\@stackoverflowname}%
+          \acvRenderSocialItem{\href{https://stackoverflow.com/users/\@stackoverflowid}{\faStackOverflow\acvHeaderIconSep\@stackoverflowname}}%
         }%
       \ifthenelse{\isundefined{\@linkedin}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.linkedin.com/in/\@linkedin}{\faLinkedin\acvHeaderIconSep\@linkedin}%
+          \acvRenderSocialItem{\href{\@linkedinurl}{\faLinkedin\acvHeaderIconSep\@linkedin}}%
         }%
       \ifthenelse{\isundefined{\@orcid}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://orcid.org/\@orcid}{\faOrcid\acvHeaderIconSep\@orcid}%
+          \acvRenderSocialItem{\href{https://orcid.org/\@orcid}{\faOrcid\acvHeaderIconSep\@orcid}}%
         }%
       \ifthenelse{\isundefined{\@twitter}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://twitter.com/\@twitter}{\faTwitter\acvHeaderIconSep\@twitter}%
+          \acvRenderSocialItem{\href{https://twitter.com/\@twitter}{\faTwitter\acvHeaderIconSep\@twitter}}%
         }%
       \ifthenelse{\isundefined{\@mastodonname}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://\@mastodoninstance/@\@mastodonname}{\faMastodon\acvHeaderIconSep\@mastodonname}%
+          \acvRenderSocialItem{\href{https://\@mastodoninstance/@\@mastodonname}{\faMastodon\acvHeaderIconSep\@mastodonname}}%
         }%
       \ifthenelse{\isundefined{\@skype}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \faSkype\acvHeaderIconSep\@skype%
+          \acvRenderSocialItem{\faSkype\acvHeaderIconSep\@skype}%
         }%
       \ifthenelse{\isundefined{\@reddit}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.reddit.com/user/\@reddit}{\faReddit\acvHeaderIconSep\@reddit}%
+          \acvRenderSocialItem{\href{https://www.reddit.com/user/\@reddit}{\faReddit\acvHeaderIconSep\@reddit}}%
         }%
       \ifthenelse{\isundefined{\@researchgate}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.researchgate.net/profile/\@researchgate}{\faResearchgate\acvHeaderIconSep\@researchgate}%
+          \acvRenderSocialItem{\href{https://www.researchgate.net/profile/\@researchgate}{\faResearchgate\acvHeaderIconSep\@researchgate}}%
         }%
       \ifthenelse{\isundefined{\@xing}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.xing.com/profile/\@xing}{\faSquareXing\acvHeaderIconSep\@xing}
+          \acvRenderSocialItem{\href{https://www.xing.com/profile/\@xing}{\faSquareXing\acvHeaderIconSep\@xing}}%
         }%
       \ifthenelse{\isundefined{\@medium}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://medium.com/@\@medium}{\faMedium\acvHeaderIconSep\@medium}%
+          \acvRenderSocialItem{\href{https://medium.com/@\@medium}{\faMedium\acvHeaderIconSep\@medium}}%
         }%
       \ifthenelse{\isundefined{\@dev}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://dev.to/\@dev}{\faDev\acvHeaderIconSep\@dev}%
+          \acvRenderSocialItem{\href{\@devurl}{\faDev\acvHeaderIconSep\@dev}}%
         }%
       \ifthenelse{\isundefined{\@kaggle}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://kaggle.com/\@kaggle}{\faKaggle\acvHeaderIconSep\@kaggle}%
+          \acvRenderSocialItem{\href{https://kaggle.com/\@kaggle}{\faKaggle\acvHeaderIconSep\@kaggle}}%
         }%
       \ifthenelse{\isundefined{\@hackerrank}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.hackerrank.com/\@hackerrank}{\faHackerrank\acvHeaderIconSep\@hackerrank}%
+          \acvRenderSocialItem{\href{https://www.hackerrank.com/\@hackerrank}{\faHackerrank\acvHeaderIconSep\@hackerrank}}%
         }%
       \ifthenelse{\isundefined{\@telegram}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://t.me/\@telegram}{\faTelegram\acvHeaderIconSep\@telegram}%
+          \acvRenderSocialItem{\href{https://t.me/\@telegram}{\faTelegram\acvHeaderIconSep\@telegram}}%
         }%
       \ifthenelse{\isundefined{\@googlescholarid}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://scholar.google.com/citations?user=\@googlescholarid}{\faGraduationCap\acvHeaderIconSep\@googlescholarname}%
+          \acvRenderSocialItem{\href{https://scholar.google.com/citations?user=\@googlescholarid}{\faGraduationCap\acvHeaderIconSep\@googlescholarname}}%
         }%
       \ifthenelse{\isundefined{\@extrainfo}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \@extrainfo%
+          \acvRenderSocialItem{\@extrainfo}%
         }%
     } \\[\acvHeaderAfterSocialSkip]%
     \ifthenelse{\isundefined{\@quote}}%
@@ -682,11 +722,11 @@
   \vspace{-2.0mm}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 6cm} R{6cm}}
     \ifempty{#2#3}
-      {\entrypositionstyle{#1} & \entrydatestyle{#4} \\}
-      {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
-      \entrypositionstyle{#1} & \entrydatestyle{#4} \\}
+      {\entrypositionstyle{#2} & \entrydatestyle{#4} \\}
+    {\entrytitlestyle{#1} & \entrylocationstyle{#2} \\
+    \entrypositionstyle{#3} & \entrydatestyle{#4} \\}
     \ifstrempty{#5}
       {}
       {\multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}} \\}
@@ -738,11 +778,11 @@
 
 % Define an environment for cvskill
 \newenvironment{cvskills}{%
-  \vspace{\acvSectionContentTopSkip}
   \vspace{-2.0mm}
   \begin{center}
-    \setlength\tabcolsep{1ex}
+    \setlength\tabcolsep{0.3ex}
     \setlength{\extrarowheight}{0pt}
+    \renewcommand{\arraystretch}{0.75}
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l L{\textwidth * \real{0.9}}}
 }{%
     \end{tabular*}
@@ -754,6 +794,7 @@
 % Usage: \cvskill{<type>}{<skillset>}
 \newcommand*{\cvskill}[2]{%
 	\skilltypestyle{#1} & \skillsetstyle{#2} \\
+[-1.8ex]
 }
 
 % Define an environment for cvitems(for cventry)

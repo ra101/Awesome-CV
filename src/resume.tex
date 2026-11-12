@@ -20,7 +20,7 @@
 % A4 paper size by default, use 'letterpaper' for US letter
 \documentclass[11pt, a4paper]{src/awesome-cv}
 \usepackage{src/minipage} 
-\input{src/contact-info}
+\input{src/personal-info}
 
 % Configure page margins with geometry
 \geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
@@ -52,31 +52,7 @@
 %	Comment any of the lines below if they are not required
 %-------------------------------------------------------------------------------
 % Available options: circle|rectangle,edge/noedge,left/right
-\photo[circle,noedge,left]{./src/profile}
-\name{}{Parth Agarwal}
-\position{Technical Team Lead}
-
-% \mobile{\mobileInfo}
-\email{\emailInfo}
-%\dateofbirth{January 1st, 1970}
-\homepage{\websiteInfo}
-\github{\githubInfo}
-\linkedin{\linkedinInfo}
-\dev{\devtoInfo}
-% \gitlab{gitlab-id}
-% \stackoverflow{SO-id}{SO-name}
-% \twitter{@twit}
-% \skype{skype-id}
-% \reddit{reddit-id}
-% \kaggle{kaggle-id}
-% \hackerrank{hackerrank-id}
-% \telegram{ra_101}
-% \googlescholar{googlescholar-id}{name-to-display}
-%% \firstname and \lastname will be used
-% \googlescholar{googlescholar-id}{}
-% \extrainfo{extra information}
-
-\quote{Backend, DevOps \& A dash of Versatility ++}
+\input{src/header}
 
 
 %-------------------------------------------------------------------------------
@@ -90,7 +66,7 @@
 % Leave any of these blank if they are not needed
 \makecvfooter
   {}
-  {Parth Agarwal~~~·~~~Résumé}
+  {\nameInfo~~~·~~~Résumé}
   {\thepage}
 
 
@@ -104,6 +80,7 @@
 \colorlet{awesome}{awesome-purple}
 \input{src/resume/skills.tex}
 
+\vspace{0.75em}
 \colorlet{awesome}{awesome-skyblue}
 \input{src/resume/experience.tex}
 

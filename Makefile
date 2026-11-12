@@ -18,13 +18,13 @@ version:
 
 resume: $(SOURCE_DIR)/resume.tex $(RESUME_SRCS)
 	mkdir -p $(OUTPUT_DIR)
-	rm -rf $(OUTPUT_DIR)/resume.*
+	rm -rf $(OUTPUT_DIR)/resume*
 	$(TEX) -halt-on-error -output-directory=$(OUTPUT_DIR) $<
 	$(GS) -sOutputFile=$(OUTPUT_DIR)/resume-%d.png $(OUTPUT_DIR)/resume.pdf
 
 coverletter: $(SOURCE_DIR)/coverletter.tex
 	mkdir -p $(OUTPUT_DIR)
-	rm -rf $(OUTPUT_DIR)/coverletter.*
+	rm -rf $(OUTPUT_DIR)/coverletter*
 	$(TEX) -halt-on-error -output-directory=$(OUTPUT_DIR) $<
 	$(GS) -sOutputFile=$(OUTPUT_DIR)/coverletter-%d.png $(OUTPUT_DIR)/coverletter.pdf
 

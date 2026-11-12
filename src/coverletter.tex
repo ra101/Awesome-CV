@@ -20,7 +20,7 @@
 % A4 paper size by default, use 'letterpaper' for US letter
 \documentclass[11pt, a4paper]{src/awesome-cv}
 \usepackage{src/minipage} 
-\input{src/contact-info}
+\input{src/personal-info}
 
 % Configure page margins with geometry
 \geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
@@ -52,31 +52,7 @@
 %	Comment any of the lines below if they are not required
 %-------------------------------------------------------------------------------
 % Available options: circle|rectangle,edge/noedge,left/right
-\photo[circle,noedge,left]{./src/profile}
-\name{}{Parth Agarwal}
-\position{Technical Team Lead}
-
-% \mobile{\mobileInfo}
-\email{\emailInfo}
-%\dateofbirth{January 1st, 1970}
-\homepage{\websiteInfo}
-\github{\githubInfo}
-\linkedin{\linkedinInfo}
-\dev{\devtoInfo}
-% \gitlab{gitlab-id}
-% \stackoverflow{SO-id}{SO-name}
-% \twitter{@twit}
-% \skype{skype-id}
-% \reddit{reddit-id}
-% \kaggle{kaggle-id}
-% \hackerrank{hackerrank-id}
-% \telegram{ra_101}
-% \googlescholar{googlescholar-id}{name-to-display}
-%% \firstname and \lastname will be used
-% \googlescholar{googlescholar-id}{}
-% \extrainfo{extra information}
-
-\quote{Backend, DevOps \& A dash of Versatility ++}
+\input{src/header}
 
 
 %-------------------------------------------------------------------------------
@@ -99,7 +75,7 @@
 % Leave any of these blank if they are not needed
 \makecvfooter
   {}
-  {Parth Agarwal~~~·~~~Cover Letter}
+  {\nameInfo~~~·~~~Cover Letter}
   {}
 
 % Print the title with above letter information
@@ -110,14 +86,34 @@
 %-------------------------------------------------------------------------------
 \begin{cvletter}
 
-\lettersection{About Me}
-My name is Parth Agarwal, and I am writing to express my interest in joining your team. I am confident that I would be a strong fit for this role because of the range of projects I have been part of and my eagerness to help take your organization to the next level.
+\colorlet{awesome}{awesome-nephritis}
+\cvsection{About Me}
 
-\lettersection{Relevant Experience}
-At Innovaccer, I had the opportunity to work extensively with the \textbf{Django} framework and the Python ecosystem to build maintainable, readable systems. I have worked with PostgreSQL extensions such as Timescale and PostGIS, and I was often the go-to person for GitLab pipelines across our products. I also believe in building frameworks rather than writing standalone scripts, a mindset that continues to shape how I approach engineering work.
+\begin{cvparagraph}
+\vspace{1em}
+My name is Parth Agarwal, and I am writing to express my interest in joining your team. Over the last few years, I have built and led engineering initiatives spanning various domains. My experience has been shaped by the need to balance deep technical execution with ownership, collaboration, and business impact.
+\end{cvparagraph}
 
-\lettersection{Why Me?}
-Beyond coding, I have been recognized for my mentorship and ownership. After demonstrating initiative, I was assigned to lead the development effort for our products within our client's ecosystem. While my core strengths are in Python, backend engineering, and platform work, I am also comfortable across languages, design patterns, and product contexts, and I am excited by the opportunity to contribute at scale.
+
+\colorlet{awesome}{awesome-skyblue}
+\cvsection{Relevant Experience}
+
+\begin{cvparagraph}
+\vspace{1em}
+As a Technical Team Lead at VoerEir AB, I lead a cross-functional engineering team building benchmarking and validation platforms for Kubernetes, OpenShift, EKS, GKE, and AKS telecom environments for global operators and technology partners. My role spans technical architecture, roadmap execution, release ownership, and hands-on delivery across cloud-native and AI-enabled product work, while partnering closely with clients such as Vodafone, AWS, Google, and Red Hat. I have also led telecom certification and performance validation initiatives and architected AI-driven services for root-cause analysis, report summarization, and customer-facing RAG-based support tooling.
+
+Earlier at Innovaccer, I built healthcare outreach and backend systems using Python, Django, PostgreSQL, and Celery while also managing GitLab pipelines, release automation, and large-scale client integrations. That experience strengthened my foundation in distributed systems, backend design, and operational excellence, and it continues to shape how I lead engineering teams today.
+\end{cvparagraph}
+
+\colorlet{awesome}{awesome-orange}
+\cvsection{Why Me?}
+
+\vspace{1em}
+\begin{cvparagraph}
+What I bring is not only technical depth, but the ability to lead through ambiguity and move teams from idea to delivery. I enjoy building systems that are maintainable, measurable, and valuable to the business; I am comfortable working across platform, infrastructure, and product layers; and I take pride in mentoring engineers while maintaining a strong sense of ownership.
+
+I would welcome the opportunity to bring this mix of leadership, backend engineering, cloud and AI experience, and product thinking to your organization.
+\end{cvparagraph}
 
 \end{cvletter}
 

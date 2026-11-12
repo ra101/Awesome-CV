@@ -28,13 +28,13 @@ version:
 
 resume:
     mkdir -p {{output_dir}}
-    rm -rf {{output_dir}}/resume.*
+    rm -rf {{output_dir}}/resume*
     {{tex}} -halt-on-error -output-directory={{output_dir}} {{src_dir}}/resume.tex
     {{gs}} -sOutputFile={{output_dir}}/resume-%d.png {{output_dir}}/resume.pdf
 
 coverletter:
     mkdir -p {{output_dir}}
-    rm -rf {{output_dir}}/coverletter.*
+    rm -rf {{output_dir}}/coverletter*
     {{tex}} -halt-on-error -output-directory={{output_dir}} {{src_dir}}/coverletter.tex
     {{gs}} -sOutputFile={{output_dir}}/coverletter-%d.png {{output_dir}}/coverletter.pdf
 
