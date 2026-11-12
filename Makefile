@@ -1,22 +1,34 @@
-.PHONY: all
+.PHONY: all clean help version resume coverletter
 
-CC = docker run --rm -v .:/data -w "/data" thomasweise/docker-texlive-full xelatex
-EXAMPLES_DIR = examples
-RESUME_DIR = examples/resume
-CV_DIR = examples/cv
+CRI ?= $(shell which docker 2>/dev/null || which podman 2>/dev/null)
+TEX = $(CRI) run --rm -v .:/data -w "/data" thomasweise/docker-texlive-full xelatex
+GS = $(CRI) run --rm -v .:/data -w "/data" minidocks/ghostscript gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE=pngalpha -r180
+SOURCE_DIR = src
+OUTPUT_DIR = output
+RESUME_DIR = src/resume
 RESUME_SRCS = $(shell find $(RESUME_DIR) -name '*.tex')
-CV_SRCS = $(shell find $(CV_DIR) -name '*.tex')
 
-all: coverletter cv resume
+all: clean coverletter resume
 
-resume: $(EXAMPLES_DIR)/resume.tex $(RESUME_SRCS)
-	$(CC) -output-directory=$(EXAMPLES_DIR) $<
+help:
+	$(TEX) -help
 
-cv: $(EXAMPLES_DIR)/cv.tex $(CV_SRCS)
-	$(CC) -output-directory=$(EXAMPLES_DIR) $<
+version:
+	$(TEX) -version
 
-coverletter: $(EXAMPLES_DIR)/coverletter.tex
-	$(CC) -output-directory=$(EXAMPLES_DIR) $<
+resume: $(SOURCE_DIR)/resume.tex $(RESUME_SRCS)
+	mkdir -p $(OUTPUT_DIR)
+	rm -rf $(OUTPUT_DIR)/resume.*
+	$(TEX) -halt-on-error -output-directory=$(OUTPUT_DIR) $<
+	$(GS) -sOutputFile=$(OUTPUT_DIR)/resume-%d.png $(OUTPUT_DIR)/resume.pdf
+
+coverletter: $(SOURCE_DIR)/coverletter.tex
+	mkdir -p $(OUTPUT_DIR)
+	rm -rf $(OUTPUT_DIR)/coverletter.*
+	$(TEX) -halt-on-error -output-directory=$(OUTPUT_DIR) $<
+	$(GS) -sOutputFile=$(OUTPUT_DIR)/coverletter-%d.png $(OUTPUT_DIR)/coverletter.pdf
+
+cl: coverletter
 
 clean:
-	rm -rf $(EXAMPLES_DIR)/*.pdf
+	rm -rf $(OUTPUT_DIR)

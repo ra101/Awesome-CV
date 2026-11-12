@@ -18,7 +18,9 @@
 % CONFIGURATIONS
 %-------------------------------------------------------------------------------
 % A4 paper size by default, use 'letterpaper' for US letter
-\documentclass[11pt, a4paper]{awesome-cv}
+\documentclass[11pt, a4paper]{src/awesome-cv}
+\usepackage{src/minipage} 
+\input{src/contact-info}
 
 % Configure page margins with geometry
 \geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
@@ -50,52 +52,40 @@
 %	Comment any of the lines below if they are not required
 %-------------------------------------------------------------------------------
 % Available options: circle|rectangle,edge/noedge,left/right
-\photo[circle,noedge,left]{./examples/profile}
-\name{Claud D.}{Park}
-\position{Site Reliability Engineer{\enskip\cdotp\enskip}Software Architect}
-\address{235, World Cup buk-ro, Mapo-gu, Seoul, 03936, Republic of Korea}
+\photo[circle,noedge,left]{./src/profile}
+\name{}{Parth Agarwal}
+\position{Technical Team Lead}
 
-\mobile{(+82) 10-9030-1843}
-\email{posquit0.bj@gmail.com}
+% \mobile{\mobileInfo}
+\email{\emailInfo}
 %\dateofbirth{January 1st, 1970}
-\homepage{www.posquit0.com}
-\github{posquit0}
-\linkedin{posquit0}
+\homepage{\websiteInfo}
+\github{\githubInfo}
+\linkedin{\linkedinInfo}
+\dev{\devtoInfo}
 % \gitlab{gitlab-id}
 % \stackoverflow{SO-id}{SO-name}
 % \twitter{@twit}
 % \skype{skype-id}
 % \reddit{reddit-id}
-% \medium{madium-id}
 % \kaggle{kaggle-id}
 % \hackerrank{hackerrank-id}
-% \telegram{telegram-username}
+% \telegram{ra_101}
 % \googlescholar{googlescholar-id}{name-to-display}
 %% \firstname and \lastname will be used
 % \googlescholar{googlescholar-id}{}
 % \extrainfo{extra information}
 
-\quote{``Be the change that you want to see in the world."}
+\quote{Backend, DevOps \& A dash of Versatility ++}
 
 
 %-------------------------------------------------------------------------------
 %	LETTER INFORMATION
 %	All of the below lines must be filled out
 %-------------------------------------------------------------------------------
-% The company being applied to
-\recipient
-  {Company Recruitment Team}
-  {Google Inc.\\1600 Amphitheatre Parkway\\Mountain View, CA 94043}
-% The date on the letter, default is the date of compilation
-\letterdate{\today}
-% The title of the letter
-\lettertitle{Job Application for Software Engineer}
-% How the letter is opened
-\letteropening{Dear Mr./Ms./Dr. LastName,}
+\letteropening{To whom it may concern,}
 % How the letter is closed
-\letterclosing{Sincerely,}
-% Any enclosures with the letter
-\letterenclosure[Attached]{Curriculum Vitae}
+\letterclosing{Thank you for your time and consideration,}
 
 
 %-------------------------------------------------------------------------------
@@ -103,13 +93,13 @@
 
 % Print the header with above personal information
 % Give optional argument to change alignment(C: center, L: left, R: right)
-\makecvheader[R]
+\makecvheader[C]
 
 % Print the footer with 3 arguments(<left>, <center>, <right>)
 % Leave any of these blank if they are not needed
 \makecvfooter
-  {\today}
-  {Claud D. Park~~~·~~~Cover Letter}
+  {}
+  {Parth Agarwal~~~·~~~Cover Letter}
   {}
 
 % Print the title with above letter information
@@ -121,13 +111,13 @@
 \begin{cvletter}
 
 \lettersection{About Me}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ullamcorper neque sit amet lectus facilisis sed luctus nisl iaculis. Vivamus at neque arcu, sed tempor quam. Curabitur pharetra tincidunt tincidunt. Morbi volutpat feugiat mauris, quis tempor neque vehicula volutpat. Duis tristique justo vel massa fermentum accumsan. Mauris ante elit, feugiat vestibulum tempor eget, eleifend ac ipsum. Donec scelerisque lobortis ipsum eu vestibulum. Pellentesque vel massa at felis accumsan rhoncus.
+My name is Parth Agarwal, and I am writing to express my interest in joining your team. I am confident that I would be a strong fit for this role because of the range of projects I have been part of and my eagerness to help take your organization to the next level.
 
-\lettersection{Why Google?}
-Suspendisse commodo, massa eu congue tincidunt, elit mauris pellentesque orci, cursus tempor odio nisl euismod augue. Aliquam adipiscing nibh ut odio sodales et pulvinar tortor laoreet. Mauris a accumsan ligula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse vulputate sem vehicula ipsum varius nec tempus dui dapibus. Phasellus et est urna, ut auctor erat. Sed tincidunt odio id odio aliquam mattis. Donec sapien nulla, feugiat eget adipiscing sit amet, lacinia ut dolor. Phasellus tincidunt, leo a fringilla consectetur, felis diam aliquam urna, vitae aliquet lectus orci nec velit. Vivamus dapibus varius blandit.
+\lettersection{Relevant Experience}
+At Innovaccer, I had the opportunity to work extensively with the \textbf{Django} framework and the Python ecosystem to build maintainable, readable systems. I have worked with PostgreSQL extensions such as Timescale and PostGIS, and I was often the go-to person for GitLab pipelines across our products. I also believe in building frameworks rather than writing standalone scripts, a mindset that continues to shape how I approach engineering work.
 
 \lettersection{Why Me?}
-Duis sit amet magna ante, at sodales diam. Aenean consectetur porta risus et sagittis. Ut interdum, enim varius pellentesque tincidunt, magna libero sodales tortor, ut fermentum nunc metus a ante. Vivamus odio leo, tincidunt eu luctus ut, sollicitudin sit amet metus. Nunc sed orci lectus. Ut sodales magna sed velit volutpat sit amet pulvinar diam venenatis.
+Beyond coding, I have been recognized for my mentorship and ownership. After demonstrating initiative, I was assigned to lead the development effort for our products within our client's ecosystem. While my core strengths are in Python, backend engineering, and platform work, I am also comfortable across languages, design patterns, and product contexts, and I am excited by the opportunity to contribute at scale.
 
 \end{cvletter}
 

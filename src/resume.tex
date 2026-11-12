@@ -18,7 +18,9 @@
 % CONFIGURATIONS
 %-------------------------------------------------------------------------------
 % A4 paper size by default, use 'letterpaper' for US letter
-\documentclass[11pt, a4paper]{awesome-cv}
+\documentclass[11pt, a4paper]{src/awesome-cv}
+\usepackage{src/minipage} 
+\input{src/contact-info}
 
 % Configure page margins with geometry
 \geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
@@ -28,7 +30,7 @@
 %                 awesome-nephritis, awesome-concrete, awesome-darknight
 \colorlet{awesome}{awesome-red}
 % Uncomment if you would like to specify your own color
-% \definecolor{awesome}{HTML}{CA63A8}
+% \definecolor{awesome}{HTML}{3E6D9C}
 
 % Colors for text
 % Uncomment if you would like to specify your own color
@@ -50,32 +52,31 @@
 %	Comment any of the lines below if they are not required
 %-------------------------------------------------------------------------------
 % Available options: circle|rectangle,edge/noedge,left/right
-% \photo{./examples/profile.png}
-\name{Claud D.}{Park}
-\position{Site Reliability Engineer{\enskip\cdotp\enskip}Software Architect}
-\address{235, World Cup buk-ro, Mapo-gu, Seoul, 03936, Republic of Korea}
+\photo[circle,noedge,left]{./src/profile}
+\name{}{Parth Agarwal}
+\position{Technical Team Lead}
 
-\mobile{(+82) 10-9030-1843}
-\email{posquit0.bj@gmail.com}
+% \mobile{\mobileInfo}
+\email{\emailInfo}
 %\dateofbirth{January 1st, 1970}
-\homepage{www.posquit0.com}
-\github{posquit0}
-\linkedin{posquit0}
+\homepage{\websiteInfo}
+\github{\githubInfo}
+\linkedin{\linkedinInfo}
+\dev{\devtoInfo}
 % \gitlab{gitlab-id}
 % \stackoverflow{SO-id}{SO-name}
 % \twitter{@twit}
 % \skype{skype-id}
 % \reddit{reddit-id}
-% \medium{medium-id}
 % \kaggle{kaggle-id}
 % \hackerrank{hackerrank-id}
-% \telegram{telegram-username}
+% \telegram{ra_101}
 % \googlescholar{googlescholar-id}{name-to-display}
 %% \firstname and \lastname will be used
 % \googlescholar{googlescholar-id}{}
 % \extrainfo{extra information}
 
-\quote{``Be the change that you want to see in the world."}
+\quote{Backend, DevOps \& A dash of Versatility ++}
 
 
 %-------------------------------------------------------------------------------
@@ -83,13 +84,13 @@
 
 % Print the header with above personal information
 % Give optional argument to change alignment(C: center, L: left, R: right)
-\makecvheader
+\makecvheader[C]
 
 % Print the footer with 3 arguments(<left>, <center>, <right>)
 % Leave any of these blank if they are not needed
 \makecvfooter
-  {\today}
-  {Claud D. Park~~~·~~~Curriculum Vitae}
+  {}
+  {Parth Agarwal~~~·~~~Résumé}
   {\thepage}
 
 
@@ -97,15 +98,22 @@
 %	CV/RESUME CONTENT
 %	Each section is imported separately, open each file in turn to modify content
 %-------------------------------------------------------------------------------
-\input{cv/education.tex}
-\input{cv/skills.tex}
-\input{cv/experience.tex}
-\input{cv/extracurricular.tex}
-\input{cv/honors.tex}
-\input{cv/certificates.tex}
-\input{cv/presentation.tex}
-\input{cv/writing.tex}
-\input{cv/committees.tex}
+\colorlet{awesome}{awesome-nephritis}
+\input{src/resume/summary.tex}
+
+\colorlet{awesome}{awesome-purple}
+\input{src/resume/skills.tex}
+
+\colorlet{awesome}{awesome-skyblue}
+\input{src/resume/experience.tex}
+
+\colorlet{awesome}{awesome-red}
+\input{src/resume/certificates.tex}
+
+\colorlet{awesome}{awesome-orange}
+\input{src/resume/education.tex}
+
+% \input{resume/committees.tex}
 
 
 %-------------------------------------------------------------------------------
