@@ -449,8 +449,8 @@
 \newcommand{\acvHeaderAfterAddressSkip}{-.5mm}
 \newcommand{\acvHeaderIconSep}{\space}
 \newcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
-\newcommand{\acvHeaderAfterSocialSkip}{1.5mm}
-\newcommand{\acvHeaderAfterQuoteSkip}{0.5mm}
+\newcommand{\acvHeaderAfterSocialSkip}{0.5mm}
+\newcommand{\acvHeaderAfterQuoteSkip}{-0.5mm}
 \newcounter{acvHeaderSocialCount}
 \newcommand{\acvRenderSocialItem}[1]{%
   #1%
@@ -463,7 +463,7 @@
 }
 
 % Others
-\newcommand{\acvSectionTopSkip}{0.2mm}
+\newcommand{\acvSectionTopSkip}{0.05mm}
 \newcommand{\acvSectionContentTopSkip}{1.0mm}
 
 
@@ -687,7 +687,7 @@
   \vspace{\acvSectionTopSkip}
   \sectionstyle{#1}
   \phantomsection
-  \color{awesome}\vhrulefill{0.9pt}
+  \color{awesome}\vhrulefill{0.8pt}
 }
 
 % Define a subsection for CV
