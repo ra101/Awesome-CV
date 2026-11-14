@@ -59,7 +59,7 @@ just resume || make resume
 just coverletter || make coverletter
 ```
 
-This creates the `.pdf` and `.png` for **cover letter** and/or **resume** inside the `output/` directory.
+This creates the `.pdf` and `.png` for **cover letter** and/or **resume** inside the `output/` directory as per filenames in `.env`.
 
 
 <br>
