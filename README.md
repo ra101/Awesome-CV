@@ -50,14 +50,21 @@ This project is a Dockerized fork of [Awesome-CV](https://github.com/posquit0/Aw
 
 From the project root, run either of the following:
 
-```bash
+```shell
 # Generate both outputs
 just all || make all
 
 # Generate one output at a time
 just resume || make resume
 just coverletter || make coverletter
+```
 
+This creates the `.pdf` and `.png` for **cover letter** and/or **resume** inside the `output/` directory.
+
+
+<br>
+
+```shell
 # Generate a referral message
 sh referral_message.sh
 
@@ -65,7 +72,7 @@ sh referral_message.sh
 sh referral_message.sh --recipient "Tim" --company "Google" --role "Staff Software Engineer"
 ```
 
-This should result in the creation of `.pdf` and `.png` for **cover letter** and/or **resume** inside the `output/` directory.
+This prints the referral message to the terminal and copies it to your clipboard for quick sharing.
 
 
 <br>
