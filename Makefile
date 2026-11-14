@@ -1,4 +1,4 @@
-.PHONY: all clean help version resume coverletter
+.PHONY: all clean help version resume coverletter cl
 
 CRI ?= $(shell which docker 2>/dev/null || which podman 2>/dev/null)
 TEX = $(CRI) run --rm -v .:/data -w "/data" thomasweise/docker-texlive-full xelatex
