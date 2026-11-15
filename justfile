@@ -4,18 +4,19 @@ src_dir := "src"
 output_dir := "output"
 
 cri := shell('''
-    if command -v docker >/dev/null 2>&1; then
-        echo docker
-    elif command -v podman >/dev/null 2>&1; then
+    if command -v podman >/dev/null 2>&1; then
         echo podman
+    elif command -v docker >/dev/null 2>&1; then
+        echo docker
     else
-        echo "ERROR: docker or podman is required" >&2
+        echo "ERROR: podman or docker is required" >&2
         exit 1
     fi
 ''')
 
-tex := cri + " run --rm -v .:/data -w /data thomasweise/docker-texlive-full xelatex"
-gs := cri + " run --rm -v .:/data -w /data minidocks/ghostscript gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE=pngalpha -r180"
+mount_opt := if cri == "podman" { "-v $PWD:/data:Z" } else { "-v $PWD:/data" }
+tex := cri + " run --rm " + mount_opt + " -w /data thomasweise/docker-texlive-full xelatex"
+gs := cri + " run --rm --entrypoint /usr/bin/gs " + mount_opt + " -w /data minidocks/ghostscript -dSAFER -dBATCH -dNOPAUSE -sDEVICE=pngalpha -r180"
 
 default: all
 

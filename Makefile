@@ -10,9 +10,11 @@ ifeq ($(strip $(COVER_PDF_NAME)),)
 	COVER_PDF_NAME := coverletter
 endif
 
-CRI ?= $(shell which docker 2>/dev/null || which podman 2>/dev/null)
-TEX = $(CRI) run --rm -v .:/data -w /data thomasweise/docker-texlive-full xelatex
-GS = $(CRI) run --rm -v .:/data -w /data minidocks/ghostscript gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE=pngalpha -r180
+CRI ?= $(shell which podman 2>/dev/null || which docker 2>/dev/null)
+PWD_ABS := $(abspath .)
+VOLUME_OPTS := -v $(PWD_ABS):/data$(if $(filter podman,$(CRI)),:Z,)
+TEX = $(CRI) run --rm $(VOLUME_OPTS) -w /data thomasweise/docker-texlive-full xelatex
+GS = $(CRI) run --rm --entrypoint /usr/bin/gs $(VOLUME_OPTS) -w /data minidocks/ghostscript -dSAFER -dBATCH -dNOPAUSE -sDEVICE=pngalpha -r180
 SOURCE_DIR = src
 OUTPUT_DIR = output
 RESUME_DIR = src/resume
