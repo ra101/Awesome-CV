@@ -18,7 +18,7 @@ OUTPUT_DIR = output
 RESUME_DIR = src/resume
 RESUME_SRCS = $(shell find $(RESUME_DIR) -name '*.tex')
 
-all: clean coverletter resume
+all: clean resume coverletter
 
 help:
 	$(TEX) -help
